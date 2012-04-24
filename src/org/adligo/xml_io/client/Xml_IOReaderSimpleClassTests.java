@@ -2,6 +2,16 @@ package org.adligo.xml_io.client;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Stack;
+import java.util.TreeSet;
+import java.util.Vector;
 
 import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
@@ -94,6 +104,26 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 		
 		result = builder.readXml("<B>AA==</B>");
 		assertEquals((byte) 0 , result);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void testCollections() {
+		Xml_IOReader builder = new Xml_IOReader();
+		String xml = "<L>" + XMLBuilder.DOS_LINE_FEED
+					+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
+					+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
+					+ XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
+					+ "</L>" + XMLBuilder.DOS_LINE_FEED;
+		
+
+		Object result = builder.readXml(xml);
+		assertTrue(result instanceof Collection<?>);
+		Collection<String> resultCollection = (Collection<String>) result;
+		Iterator<String> it = resultCollection.iterator();
+		
+		assertEquals("a", it.next());
+		assertEquals("b", it.next());
+		assertEquals("c", it.next());
 	}
 
 }

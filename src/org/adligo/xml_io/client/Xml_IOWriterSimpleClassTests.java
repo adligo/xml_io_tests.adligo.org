@@ -2,12 +2,20 @@ package org.adligo.xml_io.client;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Stack;
+import java.util.TreeSet;
+import java.util.Vector;
 
 import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
 import org.adligo.models.params.client.XMLBuilder;
 import org.adligo.tests.ATest;
-import org.adligo.xml_io.client.Xml_IOWriter;
 
 public class Xml_IOWriterSimpleClassTests extends ATest {
 	private static final Log log = LogFactory.getLog(Xml_IOWriterSimpleClassTests.class);
@@ -92,5 +100,45 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		
 		result = builder.writeXml((byte) 0);
 		assertEquals("<B>AA==</B>" + XMLBuilder.DOS_LINE_FEED, result);
+	}
+	
+	public void testCollections() {
+		Xml_IOWriter builder = new Xml_IOWriter();
+		//can't do enum with out a enum impl
+		
+		//set screws with ordering
+		HashSet<String> set = new HashSet<String>() ;
+		set.add("a");
+		set.add("b");
+		set.add("c");
+		
+		String result = builder.writeXml(set);
+		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
+				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		
+		//these all seem to keep order
+		assertCollection(builder, new LinkedHashSet<String>());
+		assertCollection(builder, new LinkedList<String>());
+		assertCollection(builder, new ArrayList<String>());
+		assertCollection(builder, new Stack<String>());
+		assertCollection(builder, new PriorityQueue<String>());
+		assertCollection(builder, new TreeSet<String>());
+		assertCollection(builder, new Vector<String>());
+	}
+
+	private void assertCollection(Xml_IOWriter builder, Collection<String> list) {
+		list.add("a");
+		list.add("b");
+		list.add("c");
+		
+		String result = builder.writeXml(list);
+		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
+				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 }
