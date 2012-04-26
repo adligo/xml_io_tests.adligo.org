@@ -1,0 +1,22 @@
+package org.adligo.xml_io.client;
+
+import java.math.BigDecimal;
+
+public class CustomTestModel {
+	private BigDecimal a = new BigDecimal(1.0);
+	private BigDecimal b = new BigDecimal(2.0);
+	
+	public BigDecimal getA() {
+		return a;
+	}
+	public void setA(BigDecimal a) {
+		this.a = a;
+	}
+	public BigDecimal getB() {
+		return b;
+	}
+	public void setB(BigDecimal b) {
+		this.b = b;
+	}
+	
+}
