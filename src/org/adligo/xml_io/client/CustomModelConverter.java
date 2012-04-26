@@ -15,18 +15,18 @@ import org.adligo.xml_io.client.converters.Tags;
  * @author scott
  *
  */
-public class CustomTestModelConverter implements I_Converter<CustomTestModel> {
+public class CustomModelConverter implements I_Converter<CustomModel> {
 	private static final String TAG_NAME = "ctm";
 	
 	@Override
-	public ObjectFromXml<CustomTestModel> fromXml(String xml, TagInfo info,
+	public ObjectFromXml<CustomModel> fromXml(String xml, TagInfo info,
 			Xml_IOReaderContext context) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void toXml(CustomTestModel p, Xml_IOWriterContext context) {
+	public void toXml(CustomModel p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
 		builder.appendTagHeaderStart(TAG_NAME);
 		
@@ -46,11 +46,11 @@ public class CustomTestModelConverter implements I_Converter<CustomTestModel> {
 	
 	public static void setUp(Xml_IOSettings settings) {
 		Map<String, I_Converter<?>> fromXml = new HashMap<String, I_Converter<?>>();
-		fromXml.put(TAG_NAME, new CustomTestModelConverter());
+		fromXml.put(TAG_NAME, new CustomModelConverter());
 		settings.addFromXmlConverters(fromXml);
 		
 		Map<Class<?>, I_Converter<?>> toXml = new HashMap<Class<?>, I_Converter<?>>();
-		toXml.put(CustomTestModel.class, new CustomTestModelConverter());
+		toXml.put(CustomModel.class, new CustomModelConverter());
 		settings.addToXmlConverters(toXml);
 	}
 }
