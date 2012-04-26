@@ -6,10 +6,10 @@ import org.adligo.tests.ATest;
 public class Xml_IOWriterCustomTests extends ATest {
 
 	public void testCustomModelToXml() {
-		CustomModel ctm = new CustomModel();
+		CustomSimpleModel ctm = new CustomSimpleModel();
 		
 		Xml_IOSettings settings = new Xml_IOSettings();
-		CustomModelConverter.setUp(settings);
+		CustomSimpleModelConverter.setUp(settings);
 		
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String xml = writer.writeXml(ctm, settings);

@@ -2,7 +2,7 @@ package org.adligo.xml_io.client;
 
 import java.math.BigDecimal;
 
-public class CustomModel {
+public class CustomSimpleModel {
 	private BigDecimal a = new BigDecimal(1.0);
 	private BigDecimal b = new BigDecimal(2.0);
 	
