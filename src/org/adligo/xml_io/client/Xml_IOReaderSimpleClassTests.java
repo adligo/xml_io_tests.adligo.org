@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Stack;
 import java.util.TreeSet;
@@ -108,7 +109,7 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	
 	@SuppressWarnings("unchecked")
 	public void testCollections() {
-		Xml_IOReader builder = new Xml_IOReader();
+		Xml_IOReader reader = new Xml_IOReader();
 		String xml = "<L>" + XMLBuilder.DOS_LINE_FEED
 					+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
 					+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
@@ -116,7 +117,7 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 					+ "</L>" + XMLBuilder.DOS_LINE_FEED;
 		
 
-		Object result = builder.readXml(xml);
+		Object result = reader.readXml(xml);
 		assertTrue(result instanceof Collection<?>);
 		Collection<String> resultCollection = (Collection<String>) result;
 		Iterator<String> it = resultCollection.iterator();
@@ -126,4 +127,61 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 		assertEquals("c", it.next());
 	}
 
+	public void testMap() {
+		String xml = "<m>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>1</i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>2</i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>3</i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
+				+ "</m>" + XMLBuilder.DOS_LINE_FEED;
+		Xml_IOReader reader = new Xml_IOReader();
+		Object result = reader.readXml(xml);
+		assertTrue(result instanceof Map<?,?>);
+		Map<String, Integer> map = (Map<String, Integer>) result;
+		
+		assertEquals(new Integer(1), map.get("a"));
+		assertEquals(new Integer(2), map.get("b"));
+		assertEquals(new Integer(3), map.get("c"));
+		assertEquals(3, map.size());
+	}
+	
+	
+	public void testByteArray() {
+		Xml_IOReader reader = new Xml_IOReader();
+		Object result = reader.readXml("<a>AwI=</a>");
+		assertTrue(result instanceof byte []);
+		byte [] bytes = (byte []) result;
+		assertTrue(bytes.length == 2);
+		assertEquals((byte) 3, bytes[0]);
+		assertEquals((byte) 2, bytes[1]);
+	}
+	
+	public void testCharArray() {
+		Xml_IOReader reader = new Xml_IOReader();
+		Object result = reader.readXml("<c>hb</c>");
+		assertTrue(result instanceof char []);
+		char [] chars = (char []) result;
+		assertTrue(chars.length == 2);
+		assertEquals('h', chars[0]);
+		assertEquals('b', chars[1]);
+	}
+	
+	public void testBooleanArray() {
+		Xml_IOReader reader = new Xml_IOReader();
+		Object result = reader.readXml("<A>tf</A>");
+		assertTrue(result instanceof boolean []);
+		boolean [] bools = (boolean []) result;
+		assertTrue(bools.length == 2);
+		assertEquals(true, bools[0]);
+		assertEquals(false, bools[1]);
+		
+	}
 }
