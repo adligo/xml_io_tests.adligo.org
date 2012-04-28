@@ -149,7 +149,8 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 	@Override
 	public void toXml(CustomComplexModel p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(TAG_NAME);
+		context.appendTagHeaderStart(CustomSimpleModelConverter.CUSTOM_NAMESPACE, TAG_NAME);
+		context.appendSchemaInfoToFirstTag();
 		
 		String name = context.getNextTagNameAttribute();
 		if (name != null) {
@@ -179,10 +180,12 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 		context.writeXml(p.getKeyValues());
 		
 		builder.removeIndentLevel();
-		builder.appendEndTag(TAG_NAME);
+		context.appendEndTag(CustomSimpleModelConverter.CUSTOM_NAMESPACE, TAG_NAME);
 	}
 
 	public static void setUp(Xml_IOSettings settings) {
+		settings.addNamespace(CustomSimpleModelConverter.CUSTOM_NAMESPACE);
+		
 		Map<String, I_Converter<?>> fromXml = new HashMap<String, I_Converter<?>>();
 		fromXml.put(TAG_NAME, new CustomComplexModelConverter());
 		settings.addFromXmlConverters(fromXml);

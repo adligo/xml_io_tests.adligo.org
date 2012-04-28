@@ -29,10 +29,10 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		
 		String result = writer.writeXml('H');
-		assertEquals("<C>H</C>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "C" + MockConstants.HEADER_2 + "H</a:C>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = writer.writeXml('<');
-		assertEquals("<C>&lt;</C>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "C" + MockConstants.HEADER_2 + "&lt;</a:C>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 	}
 	
@@ -40,48 +40,49 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		Xml_IOWriter builder = new Xml_IOWriter();
 		
 		String result = builder.writeXml("Hey");
-		assertEquals("<s>Hey</s>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "s" + MockConstants.HEADER_2 + "Hey</a:s>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml("Hey<1");
-		assertEquals("<s>Hey&lt;1</s>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "s" + MockConstants.HEADER_2 + "Hey&lt;1</a:s>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml("Hey>1");
-		assertEquals("<s>Hey&gt;1</s>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "s" + MockConstants.HEADER_2 + "Hey&gt;1</a:s>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml("Hey&1");
-		assertEquals("<s>Hey&amp;1</s>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "s" + MockConstants.HEADER_2 + "Hey&amp;1</a:s>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml("Hey\"1");
-		assertEquals("<s>Hey&quot;1</s>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "s" + MockConstants.HEADER_2 + "Hey&quot;1</a:s>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testBoolean() {
 		Xml_IOWriter builder = new Xml_IOWriter();
 		
 		String result = builder.writeXml(true);
-		assertEquals("<b>t</b>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "b" + MockConstants.HEADER_2 + "t</a:b>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml(false);
-		assertEquals("<b>f</b>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "b" + MockConstants.HEADER_2 + "f</a:b>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
-	public void testPrimitiveNumbers() {
+	public void testPrimitiveNumbers() throws Exception {
 		Xml_IOWriter builder = new Xml_IOWriter();
 		
 		String result = builder.writeXml(new Integer(1));
-		assertEquals("<i>1</i>" + XMLBuilder.DOS_LINE_FEED, result);
+		//FileWriter.writeFile("text.xml", result);
+		assertEquals(MockConstants .HEADER + "i" + MockConstants.HEADER_2 + "1</a:i>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml(Long.MAX_VALUE);
-		assertEquals("<l>9223372036854775807</l>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "l" + MockConstants.HEADER_2 + "9223372036854775807</a:l>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml(Double.MIN_VALUE);
-		assertEquals("<d>4.9E-324</d>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "d" + MockConstants.HEADER_2 + "4.9E-324</a:d>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml(Float.MAX_VALUE);
-		assertEquals("<f>3.4028235E38</f>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "f" + MockConstants.HEADER_2 + "3.4028235E38</a:f>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml(Short.MIN_VALUE);
-		assertEquals("<S>-32768</S>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "S" + MockConstants.HEADER_2 + "-32768</a:S>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testBigNumbers() {
@@ -89,11 +90,11 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		
 		String text = "100" + Integer.MAX_VALUE;
 		Object result = writer.writeXml(new BigInteger(text));
-		assertEquals("<I>" + text + "</I>"  + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "I" + MockConstants.HEADER_2 + text + "</a:I>"  + XMLBuilder.DOS_LINE_FEED, result);
 		
 		text = "1.0049E-321";
 		result = writer.writeXml(new BigDecimal(text));
-		assertEquals("<D>" + text + "</D>"  + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "D" + MockConstants.HEADER_2 +text + "</a:D>"  + XMLBuilder.DOS_LINE_FEED, result);
 		
 	}
 	
@@ -101,10 +102,10 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		Xml_IOWriter builder = new Xml_IOWriter();
 		
 		String result = builder.writeXml((byte) 1);
-		assertEquals("<B>AQ==</B>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "B" + MockConstants.HEADER_2 + "AQ==</a:B>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		result = builder.writeXml((byte) 0);
-		assertEquals("<B>AA==</B>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "B" + MockConstants.HEADER_2 + "AA==</a:B>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testCollections() {
@@ -118,11 +119,11 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		set.add("c");
 		
 		String result = builder.writeXml(set);
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2 + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 		
 		//these all seem to keep order
 		assertCollection(builder, new LinkedHashSet<String>());
@@ -140,11 +141,11 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		list.add("c");
 		
 		String result = builder.writeXml(list);
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2 + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testMaps() {
@@ -163,20 +164,20 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		map.put("c", 3);
 		
 		String result = builder.writeXml(map);
-		assertEquals("<m>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>1</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>2</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>3</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ "</m>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "m" + MockConstants.HEADER_2 +  XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>1</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>2</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>3</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:m>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testHashMap() {
@@ -188,20 +189,20 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		map.put("c", 3);
 		
 		String result = builder.writeXml(map);
-		assertEquals("<m>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>2</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>3</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>1</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ "</m>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "m" + MockConstants.HEADER_2 +  XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>2</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>3</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>1</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:m>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testIdentityHashMap() {
@@ -215,20 +216,20 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		//the identity hash map screws with order, it seems pretty random
 		String result = builder.writeXml(map);
 		assertTrue("The a tag should be included", result.indexOf(
-				XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>1</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED) >= 1);
+				XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>1</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED) >= 1);
 		assertTrue("The a tag should be included", result.indexOf(
-				XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>3</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED) >= 1);
+				XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>3</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED) >= 1);
 		assertTrue("The a tag should be included", result.indexOf(
-				XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>2</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED) >= 1);
+				XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>2</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED) >= 1);
 		
 	}
 	
@@ -236,82 +237,82 @@ public class Xml_IOWriterSimpleClassTests extends ATest {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new String[] {"a","b","c"});
 		
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2  + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 
 	public void testCharArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new char[] {'h','b'});
 		
-		assertEquals("<c>hb</c>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "c" + MockConstants.HEADER_2  + "hb</a:c>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testBooleanArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new boolean[] {true, false});
 		
-		assertEquals("<A>tf</A>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "A" + MockConstants.HEADER_2  +"tf</a:A>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testShortArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new short[] {3, 2});
 		
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<S>3</S>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<S>2</S>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2  +  XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:S>3</a:S>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:S>2</a:S>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testIntArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new int[] {3, 2});
 		
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<i>3</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<i>2</i>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2  + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:i>3</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:i>2</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testLongArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new long[] {3, 2});
 		
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<l>3</l>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<l>2</l>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2  + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:l>3</a:l>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:l>2</a:l>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testFloatArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new float[] {3, 2});
 		
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<f>3.0</f>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<f>2.0</f>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2 + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:f>3.0</a:f>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:f>2.0</a:f>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testDoubleArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new double[] {3, 2});
 		
-		assertEquals("<L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<d>3.0</d>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<d>2.0</d>" + XMLBuilder.DOS_LINE_FEED
-				+ "</L>" + XMLBuilder.DOS_LINE_FEED, result);
+		assertEquals(MockConstants .HEADER + "L" + MockConstants.HEADER_2 + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:d>3.0</a:d>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:d>2.0</a:d>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:L>" + XMLBuilder.DOS_LINE_FEED, result);
 	}
 	
 	public void testByteArray() {
 		Xml_IOWriter writer = new Xml_IOWriter();
 		String result = writer.writeXml(new byte[] {3, 2});
 		
-		assertEquals("<a>AwI=</a>" + XMLBuilder.DOS_LINE_FEED
+		assertEquals(MockConstants .HEADER + "a" + MockConstants.HEADER_2  + "AwI=</a:a>" + XMLBuilder.DOS_LINE_FEED
 				, result);
 	}
 }

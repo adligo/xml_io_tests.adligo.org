@@ -19,6 +19,7 @@ import org.adligo.models.params.client.TagInfo;
  *
  */
 public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel> {
+	public static final String CUSTOM_NAMESPACE = "http://www.adligo.org/xml_io_tests";
 	private static final String TAG_NAME = "ctm";
 	private static final Map<String, I_AttributeSetter<CustomSimpleModel>> SETTERS = getSetters();
 	
@@ -67,7 +68,8 @@ public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel
 	@Override
 	public void toXml(CustomSimpleModel p, Xml_IOWriterContext context) {
 		I_XMLBuilder builder = context.getBuilder();
-		builder.appendTagHeaderStart(TAG_NAME);
+		context.appendTagHeaderStart(CUSTOM_NAMESPACE, TAG_NAME);
+		context.appendSchemaInfoToFirstTag();
 		
 		String name = context.getNextTagNameAttribute();
 		if (name != null) {
@@ -83,6 +85,9 @@ public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel
 	}
 
 	public static void setUp(Xml_IOSettings settings) {
+		settings.addNamespace(CUSTOM_NAMESPACE);
+		
+		
 		Map<String, I_Converter<?>> fromXml = new HashMap<String, I_Converter<?>>();
 		fromXml.put(TAG_NAME, new CustomSimpleModelConverter());
 		settings.addFromXmlConverters(fromXml);
