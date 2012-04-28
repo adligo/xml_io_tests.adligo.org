@@ -48,5 +48,6 @@ public class Xml_IOWriterCustomTests extends ATest {
 		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "</k>"  + XMLBuilder.DOS_LINE_FEED
 		      	+ XMLBuilder.SPACE_INDENT + "</m>"  + XMLBuilder.DOS_LINE_FEED
 		      	+ "</ccm>" + XMLBuilder.DOS_LINE_FEED, xml);
+		//System.out.println(xml);
 	}
 }

@@ -13,7 +13,6 @@ import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagAttribute;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.converters.ClassMappings;
-import org.adligo.xml_io.client.converters.Tags;
 
 public class CustomComplexModelConverter implements I_Converter<CustomComplexModel>{
 	private static final String TAG_NAME = "ccm";
@@ -128,7 +127,7 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 			String value = attrib.getValue();
 			
 			//don't call a setter for name
-			if ( !Tags.NAME_ATTRIBUTE.equals(name)){
+			if ( !Xml_IOConstants.N_NAME_ATTRIBUTE.equals(name)){
 				I_AttributeSetter<CustomComplexModel> setter = SETTERS.get(name);
 				setter.set(toRet, value, context);
 			}
@@ -154,7 +153,7 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 		
 		String name = context.getNextTagNameAttribute();
 		if (name != null) {
-			builder.appendAttribute(Tags.NAME_ATTRIBUTE, name);
+			builder.appendAttribute(Xml_IOConstants.N_NAME_ATTRIBUTE, name);
 			context.setNextTagNameAttribute(null);
 		}
 		//do attributes 
