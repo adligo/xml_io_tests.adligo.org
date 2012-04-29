@@ -16,7 +16,7 @@ public class Xml_IOReaderCustomTests  extends ATest {
 		
 		
 		Xml_IOReader reader = new Xml_IOReader();
-		Object obj = reader.readXml("<ctm a=\"3\" b=\"4\"/>", settings);
+		Object obj = reader.readXml(MockConstants.CUSTOM_HEADER + "ctm" + MockConstants.CUSTOM_HEADER_2_NOEND + " a=\"3\" b=\"4\"/>", settings);
 		assertTrue(obj instanceof CustomSimpleModel);
 		CustomSimpleModel mod = (CustomSimpleModel) obj;
 		assertEquals(new BigDecimal(3), mod.getA());
@@ -32,27 +32,28 @@ public class Xml_IOReaderCustomTests  extends ATest {
 		
 		Xml_IOReader reader = new Xml_IOReader();
 		Object obj = reader.readXml(
-				"<ccm id=\"9999\" sid=\"99\" lid=\"99999999\" did=\"99.99\" fid=\"9.9\" chars=\"ufda\" bytes=\"AAA=\" bools=\"t\">" 
+				MockConstants.CUSTOM_HEADER + "ccm" + MockConstants.CUSTOM_HEADER_2_NOEND + 
+				" id=\"9999\" sid=\"99\" lid=\"99999999\" did=\"99.99\" fid=\"9.9\" chars=\"ufda\" bytes=\"AAA=\" bools=\"t\">" 
 				+ XMLBuilder.DOS_LINE_FEED 
-				+ XMLBuilder.SPACE_INDENT + "<L n=\"stringsList\">" + XMLBuilder.DOS_LINE_FEED 
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>1ab</s>" + XMLBuilder.DOS_LINE_FEED 
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>1ac</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</L>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<L n=\"stringsArray\">"  + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>ba</s>"  + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>bb</s>"  + XMLBuilder.DOS_LINE_FEED
-		      	+ XMLBuilder.SPACE_INDENT + "</L>"  + XMLBuilder.DOS_LINE_FEED
-		      	+ XMLBuilder.SPACE_INDENT + "<m n=\"keyValues\">"  + XMLBuilder.DOS_LINE_FEED
-		      	+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<k>"  + XMLBuilder.DOS_LINE_FEED
-		      	+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>11</i>"  + XMLBuilder.DOS_LINE_FEED
-		      	+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>aa</s>"  + XMLBuilder.DOS_LINE_FEED
-		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "</k>"  + XMLBuilder.DOS_LINE_FEED
-		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<k>"  + XMLBuilder.DOS_LINE_FEED
-		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>22</i>"  + XMLBuilder.DOS_LINE_FEED
-		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>bb</s>"  + XMLBuilder.DOS_LINE_FEED
-		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "</k>"  + XMLBuilder.DOS_LINE_FEED
-		      	+ XMLBuilder.SPACE_INDENT + "</m>"  + XMLBuilder.DOS_LINE_FEED
-		      	+ "</ccm>" + XMLBuilder.DOS_LINE_FEED, settings);
+				+ XMLBuilder.SPACE_INDENT + "<a:L n=\"stringsList\">" + XMLBuilder.DOS_LINE_FEED 
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>1ab</a:s>" + XMLBuilder.DOS_LINE_FEED 
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>1ac</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:L>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:L n=\"stringsArray\">"  + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>ba</a:s>"  + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>bb</a:s>"  + XMLBuilder.DOS_LINE_FEED
+		      	+ XMLBuilder.SPACE_INDENT + "</a:L>"  + XMLBuilder.DOS_LINE_FEED
+		      	+ XMLBuilder.SPACE_INDENT + "<a:m n=\"keyValues\">"  + XMLBuilder.DOS_LINE_FEED
+		      	+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:k>"  + XMLBuilder.DOS_LINE_FEED
+		      	+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>11</a:i>"  + XMLBuilder.DOS_LINE_FEED
+		      	+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>aa</a:s>"  + XMLBuilder.DOS_LINE_FEED
+		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "</a:k>"  + XMLBuilder.DOS_LINE_FEED
+		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:k>"  + XMLBuilder.DOS_LINE_FEED
+		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>22</a:i>"  + XMLBuilder.DOS_LINE_FEED
+		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>bb</a:s>"  + XMLBuilder.DOS_LINE_FEED
+		        + XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "</a:k>"  + XMLBuilder.DOS_LINE_FEED
+		      	+ XMLBuilder.SPACE_INDENT + "</a:m>"  + XMLBuilder.DOS_LINE_FEED
+		      	+ "</b:ccm>" + XMLBuilder.DOS_LINE_FEED, settings);
 		assertTrue(obj instanceof CustomComplexModel);
 		CustomComplexModel mod = (CustomComplexModel) obj;
 		assertEquals(9999, mod.getId());

@@ -26,10 +26,10 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	public void testCharacter() {
 		Xml_IOReader builder = new Xml_IOReader();
 		
-		Object result = builder.readXml("<C>H</C>");
+		Object result = builder.readXml(MockConstants.HEADER + "C" + MockConstants.HEADER_2 +  "H</a:C>");
 		assertEquals('H', result);
 		
-		result = builder.readXml( "<C>&gt;</C>" );
+		result = builder.readXml(MockConstants.HEADER + "C" + MockConstants.HEADER_2 +  "&gt;</a:C>" );
 		assertEquals('>', result);
 		
 	}
@@ -37,19 +37,19 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	public void testString() {
 		Xml_IOReader builder = new Xml_IOReader();
 		
-		Object result = builder.readXml("<s>Hey</s>");
+		Object result = builder.readXml(MockConstants.HEADER + "s" + MockConstants.HEADER_2 +  "Hey</a:s>");
 		assertEquals("Hey", result);
 		
-		result = builder.readXml( "<s>Hey&lt;1</s>" );
+		result = builder.readXml(MockConstants.HEADER + "s" + MockConstants.HEADER_2 +  "Hey&lt;1</a:s>" );
 		assertEquals("Hey<1", result);
 		
-		result = builder.readXml( "<s>Hey&gt;1</s>" );
+		result = builder.readXml(MockConstants.HEADER + "s" + MockConstants.HEADER_2 +  "Hey&gt;1</a:s>" );
 		assertEquals("Hey>1", result);
 		
-		result = builder.readXml("<s>Hey&amp;1</s>" );
+		result = builder.readXml(MockConstants.HEADER + "s" + MockConstants.HEADER_2 +  "Hey&amp;1</a:s>" );
 		assertEquals("Hey&1", result);
 		
-		result = builder.readXml("<s>Hey&quot;1</s>");
+		result = builder.readXml(MockConstants.HEADER + "s" + MockConstants.HEADER_2 +  "Hey&quot;1</a:s>");
 		assertEquals( "Hey\"1", result);
 		
 	}
@@ -57,10 +57,10 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	public void testBoolean() {
 		Xml_IOReader builder = new Xml_IOReader();
 		
-		Object result = builder.readXml("<b>t</b>");
+		Object result = builder.readXml(MockConstants.HEADER + "b" + MockConstants.HEADER_2 +  "t</a:b>");
 		assertEquals(true ,result);
 		
-		result = builder.readXml("<b>f</b>");
+		result = builder.readXml(MockConstants.HEADER + "b" + MockConstants.HEADER_2 +  "f</a:b>");
 		assertEquals(false, result);
 	}
 	
@@ -68,11 +68,11 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 		Xml_IOReader builder = new Xml_IOReader();
 		
 		String text = "100" + Integer.MAX_VALUE;
-		Object result = builder.readXml("<I>" + text + "</I>");
+		Object result = builder.readXml(MockConstants.HEADER + "I" + MockConstants.HEADER_2 + text + "</a:I>");
 		assertEquals(new BigInteger(text), result);
 		
 		text = "100" + Double.MIN_VALUE;
-		result = builder.readXml("<D>" + text + "</D>");
+		result = builder.readXml(MockConstants.HEADER + "D" + MockConstants.HEADER_2 + text + "</a:D>");
 		assertEquals(new BigDecimal(text), result);
 		
 	}
@@ -81,40 +81,40 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	public void testPrimitiveNumbers() {
 		Xml_IOReader builder = new Xml_IOReader();
 		
-		Object result = builder.readXml("<i>1</i>");
+		Object result = builder.readXml(MockConstants.HEADER + "i" + MockConstants.HEADER_2 +  "1</a:i>");
 		assertEquals(1, result);
 		
-		result = builder.readXml("<l>9223372036854775807</l>");
+		result = builder.readXml(MockConstants.HEADER + "l" + MockConstants.HEADER_2 +  "9223372036854775807</a:l>");
 		assertEquals(Long.MAX_VALUE, result);
 		
-		result = builder.readXml("<d>4.9E-324</d>");
+		result = builder.readXml(MockConstants.HEADER + "d" + MockConstants.HEADER_2 +  "4.9E-324</a:d>");
 		assertEquals(Double.MIN_VALUE, result);
 		
-		result = builder.readXml("<f>3.4028235E38</f>");
+		result = builder.readXml(MockConstants.HEADER + "f" + MockConstants.HEADER_2 +  "3.4028235E38</a:f>");
 		assertEquals(Float.MAX_VALUE, result);
 		
-		result = builder.readXml("<S>-32768</S>");
+		result = builder.readXml(MockConstants.HEADER + "S" + MockConstants.HEADER_2 +  "-32768</a:S>");
 		assertEquals(Short.MIN_VALUE, result);
 	}
 	
 	public void testByte() {
 		Xml_IOReader builder = new Xml_IOReader();
 		
-		Object result = builder.readXml("<B>AQ==</B>");
+		Object result = builder.readXml(MockConstants.HEADER + "B" + MockConstants.HEADER_2 + "AQ==</a:B>");
 		assertEquals((byte) 1, result);
 		
-		result = builder.readXml("<B>AA==</B>");
+		result = builder.readXml(MockConstants.HEADER + "B" + MockConstants.HEADER_2 + "AA==</a:B>");
 		assertEquals((byte) 0 , result);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void testCollections() {
 		Xml_IOReader reader = new Xml_IOReader();
-		String xml = "<L>" + XMLBuilder.DOS_LINE_FEED
-					+ XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-					+ XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-					+ XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-					+ "</L>" + XMLBuilder.DOS_LINE_FEED;
+		String xml = MockConstants.HEADER + "L" + MockConstants.HEADER_2 + XMLBuilder.DOS_LINE_FEED
+					+ XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+					+ XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+					+ XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+					+ "</a:L>" + XMLBuilder.DOS_LINE_FEED;
 		
 
 		Object result = reader.readXml(xml);
@@ -128,20 +128,20 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	}
 
 	public void testMap() {
-		String xml = "<m>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>a</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>1</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>b</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>2</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "<k>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<s>c</s>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<i>3</i>" + XMLBuilder.DOS_LINE_FEED
-				+ XMLBuilder.SPACE_INDENT + "</k>" + XMLBuilder.DOS_LINE_FEED
-				+ "</m>" + XMLBuilder.DOS_LINE_FEED;
+		String xml = MockConstants.HEADER + "m" + MockConstants.HEADER_2 + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>a</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>1</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>b</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>2</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "<a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:s>c</a:s>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + XMLBuilder.SPACE_INDENT + "<a:i>3</a:i>" + XMLBuilder.DOS_LINE_FEED
+				+ XMLBuilder.SPACE_INDENT + "</a:k>" + XMLBuilder.DOS_LINE_FEED
+				+ "</a:m>" + XMLBuilder.DOS_LINE_FEED;
 		Xml_IOReader reader = new Xml_IOReader();
 		Object result = reader.readXml(xml);
 		assertTrue(result instanceof Map<?,?>);
@@ -156,7 +156,7 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	
 	public void testByteArray() {
 		Xml_IOReader reader = new Xml_IOReader();
-		Object result = reader.readXml("<a>AwI=</a>");
+		Object result = reader.readXml(MockConstants.HEADER + "a" + MockConstants.HEADER_2 + "AwI=</a:a>");
 		assertTrue(result instanceof byte []);
 		byte [] bytes = (byte []) result;
 		assertTrue(bytes.length == 2);
@@ -166,7 +166,7 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	
 	public void testCharArray() {
 		Xml_IOReader reader = new Xml_IOReader();
-		Object result = reader.readXml("<c>hb</c>");
+		Object result = reader.readXml(MockConstants.HEADER + "c" + MockConstants.HEADER_2 + "hb</a:c>");
 		assertTrue(result instanceof char []);
 		char [] chars = (char []) result;
 		assertTrue(chars.length == 2);
@@ -176,7 +176,7 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	
 	public void testBooleanArray() {
 		Xml_IOReader reader = new Xml_IOReader();
-		Object result = reader.readXml("<A>tf</A>");
+		Object result = reader.readXml(MockConstants.HEADER + "A" + MockConstants.HEADER_2 + "tf</a:A>");
 		assertTrue(result instanceof boolean []);
 		boolean [] bools = (boolean []) result;
 		assertTrue(bools.length == 2);

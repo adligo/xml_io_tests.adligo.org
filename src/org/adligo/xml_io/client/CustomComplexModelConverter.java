@@ -13,6 +13,7 @@ import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagAttribute;
 import org.adligo.models.params.client.TagInfo;
 import org.adligo.xml_io.client.converters.ClassMappings;
+import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
 public class CustomComplexModelConverter implements I_Converter<CustomComplexModel>{
 	private static final String TAG_NAME = "ccm";
@@ -60,21 +61,21 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 		
 		toRet.put("chars", new I_AttributeSetter<CustomComplexModel>() {
 			public void set(CustomComplexModel obj, String value, Xml_IOReaderContext context) {
-				Object toSet = context.readAttribute(ClassMappings.CHAR_ARRAY_CLASS, value);
+				Object toSet = context.readAttribute(DefaultNamespaceConverters.CHAR_ARRAY_CLASS, value);
 				obj.setChars((char []) toSet);
 			}
 		});
 		
 		toRet.put("bytes", new I_AttributeSetter<CustomComplexModel>() {
 			public void set(CustomComplexModel obj, String value, Xml_IOReaderContext context) {
-				Object toSet = context.readAttribute(ClassMappings.BYTE_ARRAY_CLASS, value);
+				Object toSet = context.readAttribute(DefaultNamespaceConverters.BYTE_ARRAY_CLASS, value);
 				obj.setBytes((byte []) toSet);
 			}
 		});
 		
 		toRet.put("bools", new I_AttributeSetter<CustomComplexModel>() {
 			public void set(CustomComplexModel obj, String value, Xml_IOReaderContext context) {
-				Object toSet = context.readAttribute(ClassMappings.BOOLEAN_ARRAY_CLASS, value);
+				Object toSet = context.readAttribute(DefaultNamespaceConverters.BOOLEAN_ARRAY_CLASS, value);
 				obj.setBools((boolean []) toSet);
 			}
 		});
@@ -126,9 +127,8 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 			String name = attrib.getName();
 			String value = attrib.getValue();
 			
-			//don't call a setter for name
-			if ( !Xml_IOConstants.N_NAME_ATTRIBUTE.equals(name)){
-				I_AttributeSetter<CustomComplexModel> setter = SETTERS.get(name);
+			I_AttributeSetter<CustomComplexModel> setter = SETTERS.get(name);
+			if (setter != null) {
 				setter.set(toRet, value, context);
 			}
 		}
@@ -186,12 +186,10 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 	public static void setUp(Xml_IOSettings settings) {
 		settings.addNamespace(CustomSimpleModelConverter.CUSTOM_NAMESPACE);
 		
-		Map<String, I_Converter<?>> fromXml = new HashMap<String, I_Converter<?>>();
-		fromXml.put(TAG_NAME, new CustomComplexModelConverter());
-		settings.addFromXmlConverters(fromXml);
-		
-		Map<Class<?>, I_Converter<?>> toXml = new HashMap<Class<?>, I_Converter<?>>();
-		toXml.put(CustomComplexModel.class, new CustomComplexModelConverter());
-		settings.addToXmlConverters(toXml);
+		NamespaceConverters converters = new NamespaceConverters();
+		converters.setNamespace(CustomSimpleModelConverter.CUSTOM_NAMESPACE);
+		converters.addXmlToObjectConverter(TAG_NAME, new CustomComplexModelConverter());
+		converters.addObjectToXmlConverter(CustomComplexModel.class, new CustomComplexModelConverter());
+		settings.addNamespaceConverter(converters);
 	}
 }

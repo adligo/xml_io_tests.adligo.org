@@ -56,9 +56,8 @@ public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel
 			String name = attrib.getName();
 			String value = attrib.getValue();
 			
-			//don't call a setter for name
-			if ( !Xml_IOConstants.N_NAME_ATTRIBUTE.equals(name)){
-				I_AttributeSetter<CustomSimpleModel> setter = SETTERS.get(name);
+			I_AttributeSetter<CustomSimpleModel> setter = SETTERS.get(name);
+			if (setter != null) {
 				setter.set(toRet, value, context);
 			}
 		}
@@ -87,13 +86,10 @@ public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel
 	public static void setUp(Xml_IOSettings settings) {
 		settings.addNamespace(CUSTOM_NAMESPACE);
 		
-		
-		Map<String, I_Converter<?>> fromXml = new HashMap<String, I_Converter<?>>();
-		fromXml.put(TAG_NAME, new CustomSimpleModelConverter());
-		settings.addFromXmlConverters(fromXml);
-		
-		Map<Class<?>, I_Converter<?>> toXml = new HashMap<Class<?>, I_Converter<?>>();
-		toXml.put(CustomSimpleModel.class, new CustomSimpleModelConverter());
-		settings.addToXmlConverters(toXml);
+		NamespaceConverters converters = new NamespaceConverters();
+		converters.setNamespace(CUSTOM_NAMESPACE);
+		converters.addXmlToObjectConverter(TAG_NAME, new CustomSimpleModelConverter());
+		converters.addObjectToXmlConverter(CustomSimpleModel.class, new CustomSimpleModelConverter());
+		settings.addNamespaceConverter(converters);
 	}
 }
