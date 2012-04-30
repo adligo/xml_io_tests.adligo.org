@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:fc xmlns:a="http://www.adligo.org/xml_io_cases" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.adligo.org/xml_io_cases cases.xsd ">
+  <a:h>
+  	<!--  ok this is cool, however how to limit the number of nests, if I have a 2d array, 
+  	     how to keep someone from passing me a 3d array?
+  	     Resolution each 2d, 3d , 4d array type would need to be created in
+  	     it's own schema as usage occurs.
+  	     
+  	 -->
+    <a:f v="123">
+      <a:f v="123.234">
+      	<a:f v="123.234"/>
+      </a:f>
+    </a:f>
+  </a:h>
+</a:fc>

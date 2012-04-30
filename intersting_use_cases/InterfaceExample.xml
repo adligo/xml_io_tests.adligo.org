@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:L xmlns:a="http://www.adligo.org/xml_io_cases" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.adligo.org/xml_io_cases cases.xsd ">
+  <!-- this is cool but xsi:type="a:b" is a lot of extra text for this 
+  //todo add xsi:type to the parser 
+  
+  also this does not allow for multiple inheritance
+  this problem may be solved here
+  http://www.ibm.com/developerworks/library/x-xml11pt2/#listing4
+  however I am still on the 1.0 schema so I need to upgrade to test this
+   -->
+  <a:wtf heya="0" heyb="0" v="123" xsi:type="a:ScottFoo2"/>
+  <a:wtf heya="0" heyb="0" wt="123" xsi:type="a:ScottFoo3">
+  	<a:hey>1132</a:hey>
+  </a:wtf>
+</a:L>

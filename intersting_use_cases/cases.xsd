@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+ targetNamespace="http://www.adligo.org/xml_io_cases"
+ xmlns:a="http://www.adligo.org/xml_io_cases"
+ elementFormDefault="qualified">
+
+   
+   <element name="ScottFooZ" type="a:ScottFoo2" />
+   
+   <element name="f" type="float" />
+   <element name="f1" type="a:MyFloat" />
+   <element name="D" type="decimal" />
+   <element name="d" type="double"/>
+   <element name="b" type="a:Boolean"/>
+   <element name="c" type="string"/>
+   <element name="A" type="a:BooleanArray"/>
+   <element name="B" type="base64Binary"/>
+   <element name="C" type="a:Character"/>
+   <element name="a" type="base64Binary"/>
+   <element name="L" type="a:Collection"/>
+   <element name="l" type="long"/>
+   <element name="m" type="a:Map"/>
+   <element name="I" type="integer"/>
+   <element name="k" type="a:KeyValue"/>
+   <element name="i" type="int"/>
+   <element name="s" type="string"/>
+   <element name="S" type="short"/>
+   <element name="fc" type="a:FloatCollection"/>
+   
+   
+   <simpleType name="BooleanArray">
+      <restriction base="string">
+         <pattern value="string"/>
+      </restriction>
+   </simpleType>
+   <simpleType name="Boolean">
+      <restriction base="string">
+         <pattern value="string"/>
+         <maxLength value="1"/>
+      </restriction>
+   </simpleType>
+   <simpleType name="Character">
+      <restriction base="string">
+         <maxLength value="1"/>
+      </restriction>
+   </simpleType>
+   
+   <complexType name="ScottFoo" abstract="true">
+   		
+   		<attributeGroup ref="a:hey"/>
+   		
+   </complexType>
+   <complexType name="ScottFoo2" >
+   		<complexContent>
+	   		<extension base="a:ScottFoo">
+	   			<attribute name="v" type="float" />
+	   		</extension>
+	   	</complexContent>
+   </complexType>
+   <complexType name="ScottFoo3">
+
+   	<complexContent>
+
+   		<extension base="a:ScottFoo">
+   			<sequence>
+   				<group ref="a:SerlizableGroup"></group>
+   			</sequence>
+   			<attribute name="wt" type="int" />
+   		</extension>
+   	</complexContent>
+
+   </complexType>
+   <complexType name="Serlizable" abstract="true" />
+   <complexType name="MyFloat">
+   			<sequence>
+   				<element name="f" type="a:MyFloat"  minOccurs="0" maxOccurs="unbounded"/>
+   			</sequence>
+   			<attribute name="v" type="float" />
+   </complexType>
+   
+   <complexType name="MyInt">
+	 <complexContent>
+   		<extension base="a:Serlizable">
+   			<attribute name="v" type="int" />
+   		</extension>
+   	</complexContent>
+   </complexType>
+    
+   <complexType name="MyFloat2">
+	   <sequence>
+	   	<group ref="a:SerlizableGroup"></group>
+	   	<element name="foo2" type="float"></element>
+	   </sequence>
+    </complexType>
+    
+   <complexType name="Collection">
+      <sequence>
+      	<element name="wtf" type="a:ScottFoo" minOccurs="1" maxOccurs="unbounded">
+      	</element>
+      </sequence>
+   </complexType>
+      <complexType name="FloatCollection">
+      <sequence>
+      	<element name="h" type="a:MyFloat" minOccurs="1" maxOccurs="unbounded">
+      	</element>
+      </sequence>
+   </complexType>
+   <complexType name="Map">
+      <sequence>
+         <element name="k" type="a:KeyValue" minOccurs="1" maxOccurs="unbounded"/>
+      </sequence>
+   </complexType>
+   <complexType name="KeyValue">
+      <sequence>
+         <any minOccurs="1" maxOccurs="2"/>
+      </sequence>
+   </complexType>
+
+   
+   <group name="SerlizableGroup">
+   	<sequence>
+   		<element name="hey" type="int"></element>
+   	</sequence>
+   </group>
+
+
+    <attributeGroup name="hey">
+    	<attribute name="heya" type="int"></attribute>
+    	<attribute name="heyb" type="int"></attribute>
+    </attributeGroup>
+
+    <group name="NewGroupDefinition">
+    	<sequence></sequence>
+    </group>
+</schema>
