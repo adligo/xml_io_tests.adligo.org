@@ -7,6 +7,7 @@
   this problem may be solved here
   http://www.ibm.com/developerworks/library/x-xml11pt2/#listing4
   however I am still on the 1.0 schema so I need to upgrade to test this
+  also substitution groups may be a solution as they changed in the 1.1 xml schema
    -->
   <a:wtf heya="0" heyb="0" v="123" xsi:type="a:ScottFoo2"/>
   <a:wtf heya="0" heyb="0" wt="123" xsi:type="a:ScottFoo3">
