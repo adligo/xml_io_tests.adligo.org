@@ -1,7 +1,5 @@
 package org.adligo.xml_io.client;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +10,6 @@ import org.adligo.models.params.client.I_XMLBuilder;
 import org.adligo.models.params.client.Parser;
 import org.adligo.models.params.client.TagAttribute;
 import org.adligo.models.params.client.TagInfo;
-import org.adligo.xml_io.client.converters.ClassMappings;
 import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
 public class CustomComplexModelConverter implements I_Converter<CustomComplexModel>{
