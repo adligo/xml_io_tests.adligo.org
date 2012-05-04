@@ -73,7 +73,6 @@ public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel
 		String name = context.getNextTagNameAttribute();
 		if (name != null) {
 			builder.appendAttribute(Xml_IOConstants.N_NAME_ATTRIBUTE, name);
-			context.setNextTagNameAttribute(null);
 		}
 		
 		context.writeXmlAttribute("a", p.getA());
