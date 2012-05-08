@@ -181,7 +181,6 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 	}
 
 	public static void setUp(Xml_IOSettings settings) {
-		settings.addNamespace(CustomSimpleModelConverter.CUSTOM_NAMESPACE);
 		
 		NamespaceConverters converters = new NamespaceConverters();
 		converters.setNamespace(CustomSimpleModelConverter.CUSTOM_NAMESPACE);

@@ -83,7 +83,6 @@ public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel
 	}
 
 	public static void setUp(Xml_IOSettings settings) {
-		settings.addNamespace(CUSTOM_NAMESPACE);
 		
 		NamespaceConverters converters = new NamespaceConverters();
 		converters.setNamespace(CUSTOM_NAMESPACE);
