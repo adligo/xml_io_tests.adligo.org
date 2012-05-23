@@ -24,12 +24,12 @@ public class Xml_IOReaderSimpleClassTests extends ATest {
 	
 	
 	public void testCharacter() {
-		Xml_IOReader builder = new Xml_IOReader();
+		Xml_IOReader reader = new Xml_IOReader();
 		
-		Object result = builder.readXml(MockConstants.HEADER + "C" + MockConstants.HEADER_2 +  "H</a:C>");
+		Object result = reader.readXml(MockConstants.HEADER + "C" + MockConstants.HEADER_2 +  "H</a:C>");
 		assertEquals('H', result);
 		
-		result = builder.readXml(MockConstants.HEADER + "C" + MockConstants.HEADER_2 +  "&gt;</a:C>" );
+		result = reader.readXml(MockConstants.HEADER + "C" + MockConstants.HEADER_2 +  "&gt;</a:C>" );
 		assertEquals('>', result);
 		
 	}
