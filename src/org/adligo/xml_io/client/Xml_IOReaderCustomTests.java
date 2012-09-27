@@ -11,7 +11,7 @@ public class Xml_IOReaderCustomTests  extends ATest {
 
 	public void testCustomModelToXml() {
 		
-		Xml_IOSettings settings = new Xml_IOSettings();
+		Xml_IOSettingsMutant settings = new Xml_IOSettingsMutant();
 		CustomSimpleModelConverter.setUp(settings);
 		
 		
@@ -26,7 +26,7 @@ public class Xml_IOReaderCustomTests  extends ATest {
 
 	
 	public void testComplexCustomModelToXml() {
-		Xml_IOSettings settings = new Xml_IOSettings();
+		Xml_IOSettingsMutant settings = new Xml_IOSettingsMutant();
 		CustomComplexModelConverter.setUp(settings);
 		
 		

@@ -8,7 +8,7 @@ public class Xml_IOWriterCustomTests extends ATest {
 	public void testCustomModelToXml() {
 		CustomSimpleModel ctm = new CustomSimpleModel();
 		
-		Xml_IOSettings settings = new Xml_IOSettings();
+		Xml_IOSettingsMutant settings = new Xml_IOSettingsMutant();
 		CustomSimpleModelConverter.setUp(settings);
 		
 		Xml_IOWriter writer = new Xml_IOWriter();
@@ -21,7 +21,7 @@ public class Xml_IOWriterCustomTests extends ATest {
 	public void testComplexCustomModelToXml() {
 		CustomComplexModel ctm = new CustomComplexModel();
 		
-		Xml_IOSettings settings = new Xml_IOSettings();
+		Xml_IOSettingsMutant settings = new Xml_IOSettingsMutant();
 		CustomComplexModelConverter.setUp(settings);
 		
 		Xml_IOWriter writer = new Xml_IOWriter();

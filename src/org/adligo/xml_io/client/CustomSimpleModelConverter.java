@@ -82,12 +82,17 @@ public class CustomSimpleModelConverter implements I_Converter<CustomSimpleModel
 		
 	}
 
-	public static void setUp(Xml_IOSettings settings) {
+	public static void setUp(Xml_IOSettingsMutant settings) {
 		
-		NamespaceConverters converters = new NamespaceConverters();
+		NamespaceConvertersMutant converters = new NamespaceConvertersMutant();
 		converters.setNamespace(CUSTOM_NAMESPACE);
 		converters.addXmlToObjectConverter(TAG_NAME, new CustomSimpleModelConverter());
+		converters.setPackageName("customPackagename");
 		converters.addObjectToXmlConverter(CustomSimpleModel.class, new CustomSimpleModelConverter());
-		settings.addNamespaceConverter(converters);
+		
+		
+		NamespacePrefixConfigMutant config = new NamespacePrefixConfigMutant();
+		config.addNamespace(converters);
+		settings.setConfig(new NamespacePrefixConfig(config));
 	}
 }

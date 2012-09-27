@@ -180,12 +180,16 @@ public class CustomComplexModelConverter implements I_Converter<CustomComplexMod
 		context.appendEndTag(CustomSimpleModelConverter.CUSTOM_NAMESPACE, TAG_NAME);
 	}
 
-	public static void setUp(Xml_IOSettings settings) {
+	public static void setUp(Xml_IOSettingsMutant settings) {
 		
-		NamespaceConverters converters = new NamespaceConverters();
+		NamespaceConvertersMutant converters = new NamespaceConvertersMutant();
 		converters.setNamespace(CustomSimpleModelConverter.CUSTOM_NAMESPACE);
+		converters.setPackageName("customPackagename");
 		converters.addXmlToObjectConverter(TAG_NAME, new CustomComplexModelConverter());
 		converters.addObjectToXmlConverter(CustomComplexModel.class, new CustomComplexModelConverter());
-		settings.addNamespaceConverter(converters);
+		
+		NamespacePrefixConfigMutant config = new NamespacePrefixConfigMutant();
+		config.addNamespace(converters);
+		settings.setConfig(new NamespacePrefixConfig(config));
 	}
 }
