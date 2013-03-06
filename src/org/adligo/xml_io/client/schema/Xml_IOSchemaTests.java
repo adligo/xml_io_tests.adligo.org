@@ -25,8 +25,9 @@ public class Xml_IOSchemaTests extends ATest {
 				"   <element name=\"c\" type=\"string\"/>" + I_XMLBuilder.DOS_LINE_FEED +
 				"   <element name=\"A\" type=\"a:BooleanArray\"/>" + I_XMLBuilder.DOS_LINE_FEED +
 				"   <element name=\"B\" type=\"base64Binary\"/>" + I_XMLBuilder.DOS_LINE_FEED +
-				"   <element name=\"C\" type=\"a:Character\"/>" + I_XMLBuilder.DOS_LINE_FEED +
 				"   <element name=\"a\" type=\"base64Binary\"/>" + I_XMLBuilder.DOS_LINE_FEED +
+				"   <element name=\"C\" type=\"a:Character\"/>" + I_XMLBuilder.DOS_LINE_FEED +
+				
 				"   <element name=\"L\" type=\"a:Collection\"/>" + I_XMLBuilder.DOS_LINE_FEED +
 				"   <element name=\"l\" type=\"long\"/>" + I_XMLBuilder.DOS_LINE_FEED +
 				"   <element name=\"m\" type=\"a:Map\"/>" + I_XMLBuilder.DOS_LINE_FEED +
