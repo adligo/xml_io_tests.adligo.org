@@ -7,23 +7,23 @@ import java.util.Map;
 import java.util.Set;
 
 import org.adligo.i.util.client.ClassUtils;
-import org.adligo.i.util.client.models.ComplexCollections;
-import org.adligo.i.util.client.models.GenericEnum;
-import org.adligo.i.util.client.models.SimpleCollections;
-import org.adligo.i.util.client.models.SimpleCollectionsWithComments;
-import org.adligo.i.util.client.models.SimpleDefaultFailure;
-import org.adligo.i.util.client.models.SimpleEnum;
-import org.adligo.i.util.client.models.SimpleEnumContainer;
-import org.adligo.i.util.client.models.SimpleFailureModel;
-import org.adligo.i.util.client.models.SimplePrivateFailure;
-import org.adligo.i.util.client.models.SimpleSerializable;
-import org.adligo.i.util.client.models.SimpleSqlDateFailureModel;
-import org.adligo.i.util.client.models.SimpleStaticFieldModel;
-import org.adligo.i.util.client.models.SqlDateGeneicFailureModel;
-import org.adligo.i.util.client.models.other_pkg.ComplexMaps;
-import org.adligo.i.util.client.models.other_pkg.SimpleIsSerializable;
-import org.adligo.i.util.client.models.other_pkg.SimpleMaps;
 import org.adligo.tests.ATest;
+import org.adligo.xml_io.client.models.ComplexCollections;
+import org.adligo.xml_io.client.models.GenericEnum;
+import org.adligo.xml_io.client.models.SimpleCollections;
+import org.adligo.xml_io.client.models.SimpleCollectionsWithComments;
+import org.adligo.xml_io.client.models.SimpleDefaultFailure;
+import org.adligo.xml_io.client.models.SimpleEnum;
+import org.adligo.xml_io.client.models.SimpleEnumContainer;
+import org.adligo.xml_io.client.models.SimpleFailureModel;
+import org.adligo.xml_io.client.models.SimplePrivateFailure;
+import org.adligo.xml_io.client.models.SimpleSerializable;
+import org.adligo.xml_io.client.models.SimpleSqlDateFailureModel;
+import org.adligo.xml_io.client.models.SimpleStaticFieldModel;
+import org.adligo.xml_io.client.models.SqlDateGeneicFailureModel;
+import org.adligo.xml_io.client.models.other_pkg.ComplexMaps;
+import org.adligo.xml_io.client.models.other_pkg.SimpleIsSerializable;
+import org.adligo.xml_io.client.models.other_pkg.SimpleMaps;
 
 /**
  * this actually tests test code
@@ -116,7 +116,7 @@ public class IsXmlIOSerializableTests extends ATest {
 		assertNotNull(ex);
 		assertEquals("You can't have a java.sql.Date you need java.util.Date  " +
 				"in class class java.sql.Date with parents " +
-				"[class org.adligo.i.util.client.models.SimpleSqlDateFailureModel]",
+				"[class org.adligo.xml_io.client.models.SimpleSqlDateFailureModel]",
 				ex.getMessage());
 	}
 	
@@ -130,7 +130,7 @@ public class IsXmlIOSerializableTests extends ATest {
 		assertNotNull(ex);
 		assertEquals("You can't have a java.sql.Date you need java.util.Date  " +
 				"in class class java.sql.Date with parents " +
-				"[interface java.util.Collection, class org.adligo.i.util.client.models.SqlDateGeneicFailureModel]",
+				"[interface java.util.Collection, class org.adligo.xml_io.client.models.SqlDateGeneicFailureModel]",
 				ex.getMessage());
 	}
 	

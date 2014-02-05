@@ -2,3 +2,6 @@ Date,Package,Coverage,Instructions
 11/14/2012,org.adligo.xml_io.client,84.1%,1765
 11/14/2012,org.adligo.xml_io.client.converters,89.8%,1439
 11/14/2012,org.adligo.xml_io.client.schema,94.2%,1364
+2/4/2014,org.adligo.xml_io.client,75.9%,1990
+2/4/2014,org.adligo.xml_io.client.converters,89.7%,1447
+2/4/2014,org.adligo.xml_io.client.schema,94.0%,1373

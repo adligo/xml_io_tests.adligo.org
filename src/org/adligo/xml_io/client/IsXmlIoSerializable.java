@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ import org.adligo.i.log.client.Log;
 import org.adligo.i.log.client.LogFactory;
 import org.adligo.i.util.client.ClassUtils;
 import org.adligo.i.util.client.StringUtils;
-import org.adligo.i.util.JavaFileReadException;
+import org.adligo.i.util.tests.JavaFileReadException;
 import org.adligo.xml_io.client.converters.DefaultNamespaceConverters;
 
 public class IsXmlIoSerializable  {
@@ -84,11 +85,34 @@ public class IsXmlIoSerializable  {
 		isXmlIoSerializable(clazz, DefaultNamespaceConverters.getDefaultNamespaceConverters());
 	}
 	public static void isXmlIoSerializable(Class<?> clazz, NamespaceConverters converters) {
-		Class<?> superClazz = clazz.getSuperclass();
 		
-		if (isCollection(clazz)) {
-			return;
+		Class<?> currentParentClazz = clazz;
+		List<Class<?>> parents = new ArrayList<Class<?>>();
+		while (currentParentClazz != null) {
+			if (currentParentClazz.isInterface() || currentParentClazz.isPrimitive() 
+				|| currentParentClazz.isEnum()) {
+				break;
+			}
+			if (Object.class.isAssignableFrom(currentParentClazz)) {
+				break;
+			} else {
+				parents.add(currentParentClazz);
+				currentParentClazz = currentParentClazz.getSuperclass();
+			}
 		}
+		
+		if (parents.size() > 1) {
+			Class<?> [] parentsArray = parents.toArray(new Class[parents.size()]);
+			for (int i = parentsArray.length -1; i > 0; i--) {
+				IsXmlIoSerializableBuilder builder = new IsXmlIoSerializableBuilder();
+				Class<?> parent = parentsArray[i];
+				builder.setCurrentClass(parent);
+				builder.setRootClass(parent);
+				builder.setNamespaceConverters(converters);
+				isXmlIoSerializable(parent, converters);
+			}
+		}
+		
 		Collection<Class<?>> commonClasses = COMMON_CLASSES.values();
 		if (commonClasses.contains(clazz)) {
 			if (log.isDebugEnabled()) {
@@ -111,7 +135,9 @@ public class IsXmlIoSerializable  {
 		builder.setCurrentClass(clazz);
 		builder.setRootClass(clazz);
 		builder.setNamespaceConverters(converters);
-		
+		if (isCollection(builder)) {
+			return;
+		}
 		isXmlIoSerializable(builder, converters);
 	}
 
@@ -153,7 +179,7 @@ public class IsXmlIoSerializable  {
 				if (log.isDebugEnabled()) {
 					log.debug(" checking generic ");
 				}
-				if (isCollection(clazz)) {
+				if (isCollection(builder)) {
 					return;
 				}
 			}
@@ -171,9 +197,6 @@ public class IsXmlIoSerializable  {
 						" with parents " + builder.getCurrentClassParents());
 			}
 			List<Class<?>> parents = builder.getCurrentClassParents();
-			
-			NamespaceConverters namespaceConverters = DefaultNamespaceConverters.getDefaultNamespaceConverters();
-			
 		
 			assertFields(builder);
 			assertConstructors(clazz, parents);
@@ -206,7 +229,13 @@ public class IsXmlIoSerializable  {
 
 	private static boolean parseJavaFileForCollection(IsXmlIoSerializableBuilder builder,
 			List<Class<?>> parents) throws IllegalStateException {
+		if (parents.size() == 0) {
+			return true;
+		}
 		Class<?> parent = parents.get(0);
+		if (isCollection(parent)) {
+			return true;
+		}
 		String classJavaFileName = ClassUtils.getClassShortName(parent) + ".java";
 		
 		

@@ -11,7 +11,7 @@ public class IsXmlIoSerializableBuilder {
 	private String currentField;
 	private List<Class<?>> currentClassParents = new ArrayList<Class<?>>();
 	private String currentClassMemberContent;
-	private boolean checkingGeneric = false;
+	private boolean checkingGeneric = true;
 	private NamespaceConverters namespaceConverters;
 	
 	public IsXmlIoSerializableBuilder() {}
@@ -24,7 +24,11 @@ public class IsXmlIoSerializableBuilder {
 		currentClassParents.addAll(other.currentClassParents);
 		currentClassMemberContent = other.currentClassMemberContent;
 		checkingGeneric = other.checkingGeneric;
-		namespaceConverters = new NamespaceConverters(other.namespaceConverters);
+		if (other.namespaceConverters != null) {
+			namespaceConverters = new NamespaceConverters(other.namespaceConverters);
+		} else {
+			namespaceConverters = new NamespaceConverters();
+		}
 	}
 	
 	public Class<?> getCurrentClass() {
