@@ -2,3 +2,7 @@ bin/
 classes/
 classes_e/
 
+test_reports/
+xml_io_tests*.jar
+test_failure.properties
+
