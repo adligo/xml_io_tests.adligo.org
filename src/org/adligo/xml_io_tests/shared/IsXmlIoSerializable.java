@@ -85,7 +85,7 @@ public class IsXmlIoSerializable  {
 	public static void isXmlIoSerializable(Class<?> clazz) {
 		isXmlIoSerializable(clazz, DefaultNamespaceConverters.getDefaultNamespaceConverters());
 	}
-	public static void isXmlIoSerializable(Class<?> clazz, NamespaceConverters converters) {
+	public static boolean isXmlIoSerializable(Class<?> clazz, NamespaceConverters converters) {
 		
 		Class<?> currentParentClazz = clazz;
 		List<Class<?>> parents = new ArrayList<Class<?>>();
@@ -119,7 +119,7 @@ public class IsXmlIoSerializable  {
 			if (log.isDebugEnabled()) {
 				log.debug(clazz + " is a A common class which is ok. ");
 			}
-			return;
+			return true;
 		}
 		if (java.sql.Date.class.isAssignableFrom(clazz)) {
 			throw new IllegalStateException("You can't have a java.sql.Date you need java.util.Date.");
@@ -128,7 +128,7 @@ public class IsXmlIoSerializable  {
 			if (log.isDebugEnabled()) {
 				log.debug(clazz + " is a A special common class which is ok. ");
 			}
-			return;
+			return true;
 		}
 
 		
@@ -137,9 +137,10 @@ public class IsXmlIoSerializable  {
 		builder.setRootClass(clazz);
 		builder.setNamespaceConverters(converters);
 		if (isCollection(builder)) {
-			return;
+			return true;
 		}
 		isXmlIoSerializable(builder, converters);
+		return true;
 	}
 
 	private static boolean isCollection(Class<?> clazz) {
