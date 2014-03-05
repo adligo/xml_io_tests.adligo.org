@@ -82,8 +82,8 @@ public class IsXmlIoSerializable  {
 	 * 
 	 * @param clazz
 	 */
-	public static void isXmlIoSerializable(Class<?> clazz) {
-		isXmlIoSerializable(clazz, DefaultNamespaceConverters.getDefaultNamespaceConverters());
+	public static boolean isXmlIoSerializable(Class<?> clazz) {
+		return isXmlIoSerializable(clazz, DefaultNamespaceConverters.getDefaultNamespaceConverters());
 	}
 	public static boolean isXmlIoSerializable(Class<?> clazz, NamespaceConverters converters) {
 		
