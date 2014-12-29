@@ -4,11 +4,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/i_log"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/i_util"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jse_util"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/params"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/tests"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jse_util.adligo.org"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/params.adligo.org"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tests.adligo.org"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/xml_io"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/xml_io.adligo.org"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/i_util_tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
