@@ -1,5 +1,12 @@
 package org.adligo.xml_io_tests.shared;
 
+import org.adligo.i.log.shared.Log;
+import org.adligo.i.log.shared.LogFactory;
+import org.adligo.i.util.shared.ClassUtils;
+import org.adligo.i.util.shared.StringUtils;
+import org.adligo.xml_io.shared.NamespaceConverters;
+import org.adligo.xml_io.shared.converters.DefaultNamespaceConverters;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,14 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-
-import org.adligo.i.log.shared.Log;
-import org.adligo.i.log.shared.LogFactory;
-import org.adligo.i.util.shared.ClassUtils;
-import org.adligo.i.util.shared.StringUtils;
-import org.adligo.i.util_tests.JavaFileReadException;
-import org.adligo.xml_io.shared.NamespaceConverters;
-import org.adligo.xml_io.shared.converters.DefaultNamespaceConverters;
 
 public class IsXmlIoSerializable  {
 	private static final Log log = LogFactory.getLog(IsXmlIoSerializable.class);
@@ -274,7 +273,7 @@ public class IsXmlIoSerializable  {
 					" you may need to add the source folder to your classpath of your test run.");
 			toThrow.initCause(x);
 			throw toThrow;
-		} catch (JavaFileReadException j) {
+		} catch (IllegalStateException j) {
 			IllegalStateException toThrow = new IllegalStateException("problem parsing file " + classJavaFileName +
 			" you may need to alter your java source code to be compatible with this test. " +
 			" Add explicit imports (ie import foo.bar.YourClass;) and possibly submit a bug report " +
@@ -294,7 +293,7 @@ public class IsXmlIoSerializable  {
 	 * @throws Exception
 	 */
 	private static void checkFileContentForFieldGenerics(IsXmlIoSerializableBuilder builder, int lastIndex) 
-	throws IOException, JavaFileReadException, IllegalStateException {
+	throws IOException, IllegalStateException {
 		
 		if (log.isDebugEnabled()) {
 			log.debug("checkFileContentForFieldGenerics with file " + 
@@ -307,13 +306,13 @@ public class IsXmlIoSerializable  {
 		
 		int index = memberContent.indexOf(fieldName, lastIndex);
 		if (index < 1) {
-			JavaFileReadException ex = new JavaFileReadException(
+		  IllegalStateException ex = new IllegalStateException(
 					"Unable to find field " + fieldName + " in " +
 					classJavaFileName);
 			ex.fillInStackTrace();
 			throw ex;
 		} else if (index + fieldName.length() + 1 > memberContent.length()){
-			JavaFileReadException ex = new JavaFileReadException(
+		  IllegalStateException ex = new IllegalStateException(
 					"Unable to find field " + fieldName + " in " +
 					classJavaFileName);
 			ex.fillInStackTrace();
