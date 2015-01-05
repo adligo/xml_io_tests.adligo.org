@@ -1,8 +1,7 @@
-bin/
-classes/
-classes_e/
-
-test_reports/
-xml_io_tests*.jar
+/bin/
+/build/
+/classes/
+/classes_e/
+/test_reports/
 test_failure.properties
-
+xml_io_tests*.jar
